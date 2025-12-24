@@ -1,0 +1,143 @@
+{% extends 'master/base.html' %}
+
+
+{% block body %}
+    
+
+<!DOCTYPE html>
+<html>
+<style>
+form {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+label {display: block;}
+
+input, select {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2;}
+
+tr:hover {background-color: #ddd;}
+
+th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+</style>
+<body>
+
+<h1>Create Employee</h1>
+
+<form action="" method="POST">
+    {% csrf_token %}
+  <label for="name"> Name</label>
+  <input type="text" id="name" name="name" placeholder="Your name..">
+
+  <label for="email">Email</label>
+  <input type="text" id="email" name="email" >
+
+  
+  <label for="phone">Phone</label>
+  <input type="text" id="phone" name="phone" >
+
+  
+  <label for="department">Department</label>
+<select name="department" id="department">
+  <option value="">--select Department..</option>
+  {% for em in department %}
+    <option value="{{ em.id }}">{{ em.name }}</option>
+  {% endfor %}
+</select>
+
+  
+
+    
+  <input type="submit" value="Save">
+</form>
+
+</head>
+<body>
+
+<h1>Employee Table</h1>
+
+<table>
+  <tr>
+    <th>Sl</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Phone</th>
+    <th>Department</th>
+    <th>Action</th>
+  </tr>
+  <tr>
+    
+    {% for e in employee %}
+        
+   
+    <td>{{forloop.counter}}</td> 
+    <td>{{e.name}}</td>
+    <td>{{e.email}}</td>
+    <td>{{e.phone}}</td>
+    <td>{{e.department.name}}</td>
+
+
+
+    <td> <a href="{% url 'editemployee' e.id %}">Edit</a></td>
+    <td> <a href="{% url 'deleteemployee' e.id %}">Delete</a></td>
+    
+  
+  </tr>
+   {% endfor %}
+ 
+  
+</table>
+
+</body>
+</html>
+
+
+
+
+
+
+{% endblock body %}
+    
